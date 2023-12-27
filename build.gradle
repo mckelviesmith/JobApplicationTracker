@@ -34,8 +34,5 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.codehaus.groovy:groovy-all:3.0.16'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
+	testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-3.0'
 }
