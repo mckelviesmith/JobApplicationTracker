@@ -16,7 +16,7 @@
 `brew services start postgres@14`
 
 ### Database Setup
-This application uses a postgres database with migrations managed with flyway. 
+This service uses a postgres database with migrations managed with flyway. 
 
 **1. Create a new postgres db with** `psql`
 ```
@@ -31,7 +31,7 @@ postgres=# \c jobapplicationtracker jobapplicationtracker
 You are now connected to database "jobapplicationtracker" as user "jobapplicationtracker".
 ```
 
-**2. Connect the project to the database**
+**3. Connect the project to the database**
 
 In `resources/application.properties` add the following:
 
@@ -42,3 +42,29 @@ spring.datasource.password=<YOUR_PASSWORD>
 spring.jpa.hibernate.ddl-auto=none
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 ```
+
+**4. Configure Flyway**
+
+Database migrations are configured with Flyway and are configured to run automatically
+when running the service. 
+
+In `resources/application.properties` add the following:
+
+```
+flyway.url=jdbc:postgresql://localhost:5432/jobapplicationtracker
+flyway.schemas =jobapplicationtracker
+flyway.user=jobapplicationtracker
+flyway.password=<YOUR_PASSWORD>
+```
+
+Currently Flyway points to your local database. Later when we deploy the service, these values
+will change and point to the remote database. 
+
+### Run the service
+
+``
+./gradlew bootRun
+``
+
+To verify the service is up and running navigate to http://localhost:8080/hello and verify that
+"hello" is displayed.
